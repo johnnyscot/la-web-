@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario Vape Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #2c2c2c; /* gris oscuro */
+      margin: 0;
+      padding: 10px;
+      color: #f1f1f1; /* texto claro */
+    }
+    h1 {
+      text-align: center;
+      color: #fff;
+      font-size: 20px;
+    }
+    .buscador {
+      margin: 15px 0;
+      text-align: center;
+    }
+    .buscador input {
+      width: 95%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #3a3a3a;
+      color: #f1f1f1;
+    }
+    .categorias {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .categorias button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      background: #444;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .categorias button:hover {
+      background: #666;
+    }
+    .categoria {
+      margin-bottom: 20px;
+    }
+    .categoria h2 {
+      background: #1e1e1e;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+    }
+    .producto {
+      background: #3a3a3a; /* gris medio */
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 13px;
+      color: #f1f1f1;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      word-wrap: break-word;
+    }
+    .producto:hover {
+      background: #505050;
+    }
+    .oculto {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>INVENTARIO VAPE STORE</h1>
+
+  <!-- Buscador -->
+  <div class="buscador">
+    <input type="text" id="buscador" placeholder="BUSCAR PRODUCTO...">
+  </div>
+
+  <!-- Botones de categorías -->
+  <div class="categorias">
+    <button onclick="mostrarCategoria('todos')">TODOS</button>
+    <button onclick="mostrarCategoria('desechables')">DESECHABLES</button>
+    <button onclick="mostrarCategoria('equipos')">EQUIPOS</button>
+    <button onclick="mostrarCategoria('vizzel')">VIZZEL</button>
+  </div>
+
+  <!-- CATEGORÍA: Desechables -->
+  <div class="categoria" data-categoria="desechables">
+    <h2>DESECHABLES</h2>
+    <div class="productos">
+      <div class="producto">WAKA ICE BLAST ICY MINT</div>
+      <div class="producto">WAKA ICE BLAST STRAWBERRY WATERMELON</div>
+      <div class="producto">WAKA ICE BLAST BLUE RAZZ</div>
+      <div class="producto">WAKA ICE BLAST WATERMELON CHILL</div>
+      <div class="producto">SWFT ICON GREEN APPLE</div>
+      <div class="producto">SWFT ICON BLUEN RAZZ BERRY ICE</div>
+      <div class="producto">SWFT ICON STRAWBERRY ROLL UP</div>
+      <div class="producto">NOTA75 PAPITO</div>
+      <div class="producto">NOTA75 HONGUITO</div>
+      <div class="producto">NOTA75 BUBALOO XTREME ICE</div>
+      <div class="producto">NOTA75 LA 42</div>
+      <div class="producto">IGET STRAWBERRY KIWI</div>
+      <div class="producto">IGET STRAWBERRY WATERMELON</div>
+      <div class="producto">IGET WATERMELON BLUEBERRY</div>
+      <div class="producto">IGET CHERRY POMEGRANATE</div>
+      <div class="producto">IGET DOUBLE APPLE</div>
+      <div class="producto">IGET BLACKBERRY POMEGRANATE CHERRY ICE</div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍA: Equipos -->
+  <div class="categoria" data-categoria="equipos">
+    <h2>EQUIPOS</h2>
+    <div class="productos">
+      <div class="producto">PAVA HORIZ ULTRA</div>
+      <div class="producto">VMATE I2</div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍA: Vizzel -->
+  <div class="categoria" data-categoria="vizzel">
+    <h2>VIZZEL</h2>
+    <div class="productos">
+      <div class="producto">BLUE RAZZ PEACH ICE</div>
+      <div class="producto">CLEAR</div>
+      <div class="producto">PEACH ICE</div>
+      <div class="producto">COCONUT AQUA</div>
+      <div class="producto">MANGO PINEAPPLE</div>
+      <div class="producto">KIWI PASSIONFRUIT GUAVA</div>
+      <div class="producto">GRAPE ICE</div>
+      <div class="producto">STRAWBERRY WATERMELON</div>
+      <div class="producto">BUBLEGUM</div>
+    </div>
+  </div>
+
+  <script>
+    // Filtro por categorías
+    function mostrarCategoria(cat) {
+      let categorias = document.querySelectorAll('.categoria');
+      categorias.forEach(c => {
+        if (cat === 'todos' || c.dataset.categoria === cat) {
+          c.classList.remove('oculto');
+        } else {
+          c.classList.add('oculto');
+        }
+      });
+    }
+
+    // Buscador de productos
+    document.getElementById('buscador').addEventListener('keyup', function() {
+      let filtro = this.value.toLowerCase();
+      let productos = document.querySelectorAll('.producto');
+      productos.forEach(p => {
+        if (p.textContent.toLowerCase().includes(filtro)) {
+          p.style.display = 'block';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
